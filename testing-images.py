@@ -40,27 +40,29 @@ img_gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
 #     cv2.rectangle(img_gray, pt, (pt[0] + w, pt[1] + h), (255,255,255), 4)
 
 
-chair_1 = cv2.imread('assets/floor1.png',0)
+chair_1 = cv2.imread('assets/chair10.png',0)
+# chair_1 = cv2.imread('assets/x_icon.png',0)
 w, h = chair_1.shape[::-1] # weight height
 
 res = cv2.matchTemplate(img_gray, chair_1, cv2.TM_CCOEFF_NORMED)
 
-threshold = 0.5
+threshold = 0.9
 loc = np.where( res >= threshold)
 loczip = list(zip(*loc[::-1]))
 coor = loczip[0]
 mouse.position = (coor[0]+int(w/2), coor[1]+int(h/2))
 mouse.click(Button.left)
-keyboard.type('Hello World')
-keyboard.press(Key.enter)
-keyboard.release(Key.enter)
+print(loczip)
+# keyboard.type('Hello World')
+# keyboard.press(Key.enter)
+# keyboard.release(Key.enter)
 
 for pt in zip(*loc[::-1]):
     # print(pt)
     # print(type(pt))
     cv2.rectangle(img_gray, pt, (pt[0] + w, pt[1] + h), (255,255,255), 4)
 
-# cv2.imshow('img_bgr', img_gray)
-# # # cv2.imshow('habbo', habbo_avatar_1)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
+cv2.imshow('img_bgr', img_gray)
+# # cv2.imshow('habbo', habbo_avatar_1)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
