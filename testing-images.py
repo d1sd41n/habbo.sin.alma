@@ -40,7 +40,7 @@ img_gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
 #     cv2.rectangle(img_gray, pt, (pt[0] + w, pt[1] + h), (255,255,255), 4)
 
 
-chair_1 = cv2.imread('assets/chair10.png',0)
+chair_1 = cv2.imread('assets/cafeteria/x_icon.png',0)
 # chair_1 = cv2.imread('assets/x_icon.png',0)
 w, h = chair_1.shape[::-1] # weight height
 

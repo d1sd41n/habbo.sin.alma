@@ -22,13 +22,13 @@ class Vision:
     def convert_rgb_to_bgr(self, img):
         return img[:, :, ::-1]
 
-    def match_template(self, img_grayscale, template, threshold=0.9):
+    def match_template(self, screen, template, threshold=0.9):
         """
         Matches template image in a target grayscaled image
         """
-
-        res = cv2.matchTemplate(img_grayscale, template, cv2.TM_CCOEFF_NORMED)
+        res = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
         matches = np.where(res >= threshold)
+        matches = list(zip(*matches[::-1]))
         return matches
 
     def get_image(self, path):
