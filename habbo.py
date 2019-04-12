@@ -14,9 +14,10 @@ class BotHabbo:
             'x_icon': 'assets/habbo/x_icon.png',
         }
 
-    def find_x_and_close_object_window(self, screen):
+    def find_x_and_close_object_window(self):
         """Looks for the X icon of a window and close it if find one"""
         print("looking for X window icon...")
+        screen = self.vision.take_screenshot()
         path = self.static_templates_habbo['x_icon'] #get x icon path
         template = self.vision.get_image(path)
         matches = self.vision.match_template(screen, template)

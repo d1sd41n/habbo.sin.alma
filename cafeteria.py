@@ -29,22 +29,24 @@ class BotCafeteria(BotHabbo):
     def find_chair_and_sit(self):
         print("looking for a chair...")
         paths = list(self.static_templates.values())[:-1] # get all path chairs
-        shuffle(paths)
+        shuffle(paths) # shuffle the list of paths to get random images
         screen = self.vision.take_screenshot()
         for x in paths:
             template = self.vision.get_image(x)
+            w, h = template.shape[::-1] # get weight, height of the image
             matches = self.vision.match_template(screen, template)
             print(matches)
             if len(matches):
-                print("Closing window")
-                x, y = matches[0][0], matches[0][1]
+                print("chair found")
+                x, y = matches[0][0]+int(w/2), matches[0][1]+int(h/2)
                 self.controller.set_mouse_position(x, y)
                 self.controller.left_mouse_click()
                 break
+        time.sleep(1)
+        self.find_x_and_close_object_window()
 
     def run(self):
-        screen = self.vision.take_screenshot()
-        self.find_x_and_close_object_window(screen)
+        None
         # cv2.imshow('img_bgr', screen)
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
