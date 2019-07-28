@@ -4,6 +4,7 @@ from vision import Vision
 from controller import Controller
 from habbo import BotHabbo
 from random import shuffle
+from random import randrange
 
 import cv2
 
@@ -88,18 +89,28 @@ class BotCafeteria(BotHabbo):
                 self.controller.left_mouse_click()
                 print("waiting 10 seconds...")
                 time.sleep(10)
-                self.controller.type_text("un cafe porfavor")
+                self.controller.type_text("Cordial saludo Mr.Cafe, regalame un cafe porfavor")
+                self.controller.press_key_enter()
+                time.sleep(4)
+                self.controller.type_text("Gracias finísimo caballero, muy amable de su parte")
                 self.controller.press_key_enter()
                 self.find_x_and_close_object_window()
+                time.sleep(1)
                 return True
         return False
 
 
     def run(self):
-        None
-        # cv2.imshow('img_bgr', screen)
-        # cv2.waitKey(0)
-        # cv2.destroyAllWindows()
+        while True:
+            time.sleep(10)
+            if randrange(10)<2:
+                self.find_cafe_and_go()
+                continue
+            elif self.find_chair_and_sit():
+                continue
+            else:
+                self.find_floor_and_go()
+
 
 
 
@@ -111,5 +122,5 @@ print("Charging bot")
 bot = BotCafeteria(vision, controller)
 # bot.find_floor_and_go()
 # bot.find_chair_and_sit()
-bot.find_cafe_and_go()
-#bot.run()
+# bot.find_cafe_and_go()
+bot.run()
