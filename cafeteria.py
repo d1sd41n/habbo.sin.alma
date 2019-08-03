@@ -32,71 +32,29 @@ class BotCafeteria(BotHabbo):
 
     def find_chair_and_sit(self):
         print("looking for a chair...")
-        paths = list(self.static_templates.values())[:9] # get all path chairs
+        paths = self.get_images_path(self.static_templates, 'chair') # get al chair image paths
         shuffle(paths) # shuffle the list of paths to get random images
-        screen = self.vision.take_screenshot()
-        for x in paths:
-            template = self.vision.get_image(x)
-            w, h = template.shape[::-1] # get weight, height of the image
-            matches = self.vision.match_template(screen, template)
-            # print(matches)
-            if len(matches):
-                print("chair found")
-                x, y = matches[0][0]+int(w/2), matches[0][1]+int(h/2)
-                self.controller.set_mouse_position(x, y)
-                self.controller.left_mouse_click()
-                time.sleep(1)
-                self.find_x_and_close_object_window()
-                return True
-        return False
+        return self.find_place_and_go(paths) # go to the chair if find one
 
     def find_floor_and_go(self):
-        print("looking for a cafe...")
-        paths = list(self.static_templates.values())[9:13] # get all path chairs
+        print("looking for a floor...")
+        paths = self.get_images_path(self.static_templates, 'floor') # get al chair image paths
         paths.reverse()
-        screen = self.vision.take_screenshot()
-        for x in paths:
-            template = self.vision.get_image(x)
-            w, h = template.shape[::-1] # get weight, height of the image
-            matches = self.vision.match_template(screen, template)
-            if len(matches):
-                shuffle(matches)
-                print("Floor located... going to floor")
-                x, y = matches[0][0]+int(w/2), matches[0][1]+int(h/2)
-                self.controller.set_mouse_position(x, y)
-                self.controller.left_mouse_click()
-                time.sleep(1)
-                self.find_x_and_close_object_window()
-                return True
-        return False
+        return self.find_place_and_go(paths) # go to the floor if find one
 
 
     def find_cafe_and_go(self):
         print("looking for a floor...")
-        paths = list(self.static_templates.values())[12:] # get all path chairs
-        print(paths)
-        paths.reverse()
+        paths = self.get_images_path(self.static_templates, 'cafe')
         screen = self.vision.take_screenshot()
-        for x in paths:
-            template = self.vision.get_image(x)
-            w, h = template.shape[::-1] # get weight, height of the image
-            matches = self.vision.match_template(screen, template)
-            if len(matches):
-                shuffle(matches)
-                print("Floor located... going to floor")
-                x, y = matches[0][0]+int(w/2), matches[0][1]+int(h/2)
-                self.controller.set_mouse_position(x, y)
-                self.controller.left_mouse_click()
-                print("waiting 10 seconds...")
-                time.sleep(10)
-                self.controller.type_text("Cordial saludo Mr.Cafe, regalame un cafe porfavor")
-                self.controller.press_key_enter()
-                time.sleep(4)
-                self.controller.type_text("Gracias finísimo caballero, muy amable de su parte")
-                self.controller.press_key_enter()
-                self.find_x_and_close_object_window()
-                time.sleep(1)
-                return True
+        if self.find_place_and_go(paths):
+            print("waiting 10 seconds...")
+            time.sleep(10)
+            self.say_something("Cordial saludo Mr.Cafe, regalame un cafe porfavor")
+            time.sleep(4)
+            self.say_something("Gracias finísimo caballero, muy amable de su parte")
+            time.sleep(1)
+            return True
         return False
 
 
