@@ -35,7 +35,7 @@ class BotHabbo:
 
     def find_place_and_go(self, image_paths):
         """get the image paths and for the coors in the screenshot
-        and go to that place if find one"""
+        and go to some place if find one"""
         screen = self.vision.take_screenshot()
         for x in image_paths:
             template = self.vision.get_image(x)

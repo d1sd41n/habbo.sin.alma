@@ -39,21 +39,20 @@ img_gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
 #     print(type(pt))
 #     cv2.rectangle(img_gray, pt, (pt[0] + w, pt[1] + h), (255,255,255), 4)
 
-
-chair_1 = cv2.imread('assets/cafeteria/cafe1.png',0)
+chair_1 = cv2.imread('assets/cafeteria/drink1.png',0)
 print(chair_1)
 w, h = chair_1.shape[::-1] # weight height
 
 res = cv2.matchTemplate(img_gray, chair_1, cv2.TM_CCOEFF_NORMED)
 
-threshold = 0.7
+threshold = 0.8
 loc = np.where( res >= threshold)
 loczip = list(zip(*loc[::-1]))
 coor = loczip[0]
 mouse.position = (coor[0]+int(w/2), coor[1]+int(h/2))
 mouse.click(Button.left)
 print(loczip)
-keyboard.type('Hello World')
+keyboard.type('.')
 keyboard.press(Key.enter)
 keyboard.release(Key.enter)
 

@@ -62,7 +62,7 @@ class BotCafeteria(BotHabbo):
         while True:
             time.sleep(10)
             if randrange(10)<2:
-                self.find_cafe_and_go()
+                #self.find_cafe_and_go()
                 continue
             elif self.find_chair_and_sit():
                 continue
