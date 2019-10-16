@@ -24,28 +24,14 @@ img = Image.frombytes('RGB', sct_img.size, sct_img.rgb)
 img = np.array(img)
 img_bgr = convert_rgb_to_bgr(img)
 img_gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
-#print(img)
 
-# habbo_avatar_1 = cv2.imread('assets/habbo_avatar_1.png',0)
-# w, h = habbo_avatar_1.shape[::-1] # weight height
-#
-# res = cv2.matchTemplate(img_gray, habbo_avatar_1, cv2.TM_CCOEFF_NORMED)
-#
-# threshold = 0.7
-# loc = np.where( res >= threshold)
-#
-# for pt in zip(*loc[::-1]):
-#     print(pt)
-#     print(type(pt))
-#     cv2.rectangle(img_gray, pt, (pt[0] + w, pt[1] + h), (255,255,255), 4)
-
-chair_1 = cv2.imread('assets/cafeteria/drink1.png',0)
+chair_1 = cv2.imread('assets/cafeteria/drink3.png',0)
 print(chair_1)
 w, h = chair_1.shape[::-1] # weight height
 
 res = cv2.matchTemplate(img_gray, chair_1, cv2.TM_CCOEFF_NORMED)
 
-threshold = 0.8
+threshold = 0.9
 loc = np.where( res >= threshold)
 loczip = list(zip(*loc[::-1]))
 coor = loczip[0]

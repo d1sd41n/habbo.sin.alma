@@ -28,7 +28,7 @@ class BotHabbo:
             self.controller.left_mouse_click()
 
     def get_images_path(self, dict, image_type):
-        """get a dictonionay and the type of image we want to filter the paths"""
+        """get a dictonionary and the type of image we want to filter the paths"""
         dictFiltered = {k:v for k,v in dict.items() if k.startswith(image_type)}
         paths = list(dictFiltered.values()) # get all path chairs
         return paths
@@ -45,6 +45,26 @@ class BotHabbo:
                 print("item found")
                 x, y = matches[0][0]+int(w/2), matches[0][1]+int(h/2)
                 self.controller.set_mouse_position(x, y)
+                self.controller.left_mouse_click()
+                time.sleep(1)
+                self.find_x_and_close_object_window()
+                return True
+        return False
+    
+    def find_drink_and_take_it(self, image_paths):
+        """get the image paths and for the coors in the screenshot
+        and go to some place if find one"""
+        screen = self.vision.take_screenshot()
+        for x in image_paths:
+            template = self.vision.get_image(x)
+            w, h = template.shape[::-1] # get weight, height of the image
+            matches = self.vision.match_template(screen, template)
+            if len(matches):
+                print("item found")
+                x, y = matches[0][0]+int(w/2), matches[0][1]+int(h/2)
+                self.controller.set_mouse_position(x, y)
+                self.controller.left_mouse_click() # double click
+                time.sleep(0.2)
                 self.controller.left_mouse_click()
                 time.sleep(1)
                 self.find_x_and_close_object_window()

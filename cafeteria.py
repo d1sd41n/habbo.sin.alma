@@ -27,7 +27,9 @@ class BotCafeteria(BotHabbo):
             'floor1': 'assets/cafeteria/floor1.png',
             'floor2': 'assets/cafeteria/floor2.png',
             'floor3': 'assets/cafeteria/floor3.png',
-            'cafe1': 'assets/cafeteria/cafe1.png',
+            'drink1': 'assets/cafeteria/drink1.png',
+            'drink2': 'assets/cafeteria/drink2.png',
+            'drink3': 'assets/cafeteria/drink3.png',
         }
 
     def find_chair_and_sit(self):
@@ -44,25 +46,17 @@ class BotCafeteria(BotHabbo):
 
 
     def find_cafe_and_go(self):
-        print("looking for a floor...")
-        paths = self.get_images_path(self.static_templates, 'cafe')
-        screen = self.vision.take_screenshot()
-        if self.find_place_and_go(paths):
-            print("waiting 10 seconds...")
-            time.sleep(10)
-            self.say_something("Cordial saludo Mr.Cafe, regalame un cafe porfavor")
-            time.sleep(4)
-            self.say_something("Gracias finísimo caballero, muy amable de su parte")
-            time.sleep(1)
-            return True
-        return False
+        print("looking for a cafe...")
+        paths = self.get_images_path(self.static_templates, 'drink')
+        shuffle(paths)
+        return self.find_drink_and_take_it(paths)
 
 
     def run(self):
         while True:
             time.sleep(10)
             if randrange(10)<2:
-                #self.find_cafe_and_go()
+                self.find_cafe_and_go()
                 continue
             elif self.find_chair_and_sit():
                 continue
