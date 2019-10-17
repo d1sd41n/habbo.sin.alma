@@ -64,9 +64,7 @@ class BotHabbo:
                 x, y = matches[0][0]+int(w/2), matches[0][1]+int(h/2)
                 self.controller.set_mouse_position(x, y)
                 self.controller.left_mouse_click() # double click
-                time.sleep(0.2)
                 self.controller.left_mouse_click()
-                time.sleep(1)
                 self.find_x_and_close_object_window()
                 return True
         return False
