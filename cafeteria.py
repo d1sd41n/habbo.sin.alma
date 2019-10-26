@@ -52,9 +52,23 @@ class BotCafeteria(BotHabbo):
         return self.find_drink_and_take_it(paths)
 
 
+
+    def give_drink_to_some_habbo(self):
+        """get a drink and give it to some habbo"""
+        self.state = "looking for a drink"
+        self.find_cafe_and_go()
+        time.sleep(10)
+        self.find_habbos_talking()
+        time.sleep(1)
+        self.find_and_open_habbo_menu()
+        time.sleep(1)
+        self.find_givedrink_button_and_click()
+
+
+
     def run(self):
         while True:
-            time.sleep(2)
+            time.sleep(30)
             if randrange(10)<=3:
                 self.find_cafe_and_go()
                 continue
@@ -75,4 +89,6 @@ bot = BotCafeteria(vision, controller)
 # bot.find_floor_and_go()
 # bot.find_chair_and_sit()
 # bot.find_cafe_and_go()
-bot.run()
+# bot.run()
+# bot.find_habbos_talking()
+bot.give_drink_to_some_habbo()

@@ -25,7 +25,7 @@ img = np.array(img)
 img_bgr = convert_rgb_to_bgr(img)
 img_gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
 
-chair_1 = cv2.imread('assets/cafeteria/talk1.png',0)
+chair_1 = cv2.imread('assets/habbo/givedrink1.png',0)
 print(chair_1)
 w, h = chair_1.shape[::-1] # weight height
 

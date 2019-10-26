@@ -12,6 +12,9 @@ class BotHabbo:
         self.state = 'not started'
         self.static_templates_habbo = {
             'x_icon': 'assets/habbo/x_icon.png',
+            'talk1': 'assets/habbo/talk1.png',
+            'habbom1': 'assets/habbo/habbom1.png',
+            'givedrink1': 'assets/habbo/givedrink1.png',
         }
 
     def find_x_and_close_object_window(self):
@@ -65,6 +68,8 @@ class BotHabbo:
                 self.controller.set_mouse_position(x, y)
                 self.controller.left_mouse_click() # double click
                 self.controller.left_mouse_click()
+                self.controller.left_mouse_click()
+                self.controller.left_mouse_click()
                 self.find_x_and_close_object_window()
                 return True
         return False
@@ -73,6 +78,62 @@ class BotHabbo:
         print("saying:",text)
         self.controller.type_text(text)
         self.controller.press_key_enter()
+
+
+    def find_habbos_talking(self):
+        """Looks for the X icon of a window and close it if find one"""
+        print("looking for X window icon...")
+        screen = self.vision.take_screenshot()
+        path = self.static_templates_habbo['talk1'] # look for a chat bullet point
+        template = self.vision.get_image(path)
+        matches = self.vision.match_template(screen, template)
+        if len(matches):
+            print("chat detected")
+            print("Clicking habbo")
+            x, y = matches[0][0], matches[0][1]
+            self.controller.set_mouse_position(x, y)
+            self.controller.left_mouse_click()
+            return True
+        print("Chat no found")
+        return False
+
+    
+    def find_and_open_habbo_menu(self):
+        """Looks for the X icon of a window and close it if find one"""
+        print("looking for habbo menu..")
+        screen = self.vision.take_screenshot()
+        path = self.static_templates_habbo['habbom1'] # look for a chat bullet point
+        template = self.vision.get_image(path)
+        matches = self.vision.match_template(screen, template)
+        if len(matches):
+            print("menu detected")
+            print("Clicking menu")
+            x, y = matches[0][0], matches[0][1]
+            self.controller.set_mouse_position(x, y)
+            self.controller.left_mouse_click()
+            return True
+        print("Chat no found")
+        return False
+    
+
+    def find_givedrink_button_and_click(self):
+        """Looks for the X icon of a window and close it if find one"""
+        print("looking for habbo menu..")
+        screen = self.vision.take_screenshot()
+        path = self.static_templates_habbo['givedrink1'] # look for a chat bullet point
+        template = self.vision.get_image(path)
+        matches = self.vision.match_template(screen, template)
+        if len(matches):
+            print("menu detected")
+            print("Clicking menu")
+            x, y = matches[0][0], matches[0][1]
+            self.controller.set_mouse_position(x, y)
+            self.controller.left_mouse_click()
+            return True
+        print("Chat no found")
+        return False
+        
+
 
     def run(self):
         screen = self.vision.take_screenshot()
