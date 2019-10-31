@@ -64,6 +64,7 @@ class BotHabbo:
             matches = self.vision.match_template(screen, template)
             if len(matches):
                 print("item found")
+                print("going for a drink")
                 x, y = matches[0][0]+int(w/2), matches[0][1]+int(h/2)
                 self.controller.set_mouse_position(x, y)
                 self.controller.left_mouse_click() # double click
@@ -108,6 +109,7 @@ class BotHabbo:
         if len(matches):
             print("menu detected")
             print("Clicking menu")
+            print("giving some drink to some habbo")
             x, y = matches[0][0], matches[0][1]
             self.controller.set_mouse_position(x, y)
             self.controller.left_mouse_click()

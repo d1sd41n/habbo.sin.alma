@@ -11,7 +11,9 @@ import cv2
 class BotCafeteria(BotHabbo):
     def __init__(self, vision, controller):
         super().__init__(vision, controller)
+        print("charging vision library...")
         self.vision = vision
+        print("charging controller library...")
         self.controller = controller
         self.state = 'not started'
         self.static_templates = {
@@ -31,6 +33,7 @@ class BotCafeteria(BotHabbo):
             'drink2': 'assets/cafeteria/drink2.png',
             'drink3': 'assets/cafeteria/drink3.png',
         }
+        print("ready...")
 
     def find_chair_and_sit(self):
         print("looking for a chair...")
@@ -61,16 +64,19 @@ class BotCafeteria(BotHabbo):
         self.find_habbos_talking()
         time.sleep(1)
         self.find_and_open_habbo_menu()
-        time.sleep(1)
+        time.sleep(2)
         self.find_givedrink_button_and_click()
 
 
 
     def run(self):
         while True:
+            print("waiting...")
             time.sleep(30)
             if randrange(10)<=3:
                 self.find_cafe_and_go()
+                if randrange(10)<=5:
+                    self.give_drink_to_some_habbo()
                 continue
             elif self.find_chair_and_sit():
                 continue
@@ -89,6 +95,6 @@ bot = BotCafeteria(vision, controller)
 # bot.find_floor_and_go()
 # bot.find_chair_and_sit()
 # bot.find_cafe_and_go()
-# bot.run()
+bot.run()
 # bot.find_habbos_talking()
-bot.give_drink_to_some_habbo()
+# bot.give_drink_to_some_habbo()
