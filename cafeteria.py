@@ -1,20 +1,13 @@
 import numpy as np
 import time
-from vision import Vision
-from controller import Controller
 from habbo import BotHabbo
 from random import shuffle
 from random import randrange
 
-import cv2
 
 class BotCafeteria(BotHabbo):
-    def __init__(self, vision, controller):
-        super().__init__(vision, controller)
-        print("charging vision library...")
-        self.vision = vision
-        print("charging controller library...")
-        self.controller = controller
+    def __init__(self):
+        super().__init__()
         self.state = 'not started'
         self.static_templates = {
             'chair2': 'assets/cafeteria/chair2.png',
@@ -86,12 +79,8 @@ class BotCafeteria(BotHabbo):
 
 
 
-print("Charging vision library")
-vision = Vision()
-print("Charging controller library")
-controller = Controller()
 print("Charging bot")
-bot = BotCafeteria(vision, controller)
+bot = BotCafeteria()
 # bot.find_floor_and_go()
 # bot.find_chair_and_sit()
 # bot.find_cafe_and_go()

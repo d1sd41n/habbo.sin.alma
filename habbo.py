@@ -6,9 +6,11 @@ from controller import Controller
 import cv2
 
 class BotHabbo:
-    def __init__(self, vision, controller):
-        self.vision = vision
-        self.controller = controller
+    def __init__(self):
+        print("Charging vision library")
+        self.vision = Vision()
+        print("Charging controller library")
+        self.controller = Controller()
         self.state = 'not started'
         self.static_templates_habbo = {
             'x_icon': 'assets/habbo/x_icon.png',
