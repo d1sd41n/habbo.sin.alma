@@ -65,10 +65,10 @@ class BotCafeteria(BotHabbo):
     def run(self):
         while True:
             print("waiting...")
-            time.sleep(30)
-            if randrange(10)<=3:
+            time.sleep(5)
+            if randrange(10)<=10:
                 self.find_cafe_and_go()
-                if randrange(10)<=5:
+                if randrange(10)<=10:
                     self.give_drink_to_some_habbo()
                 continue
             elif self.find_chair_and_sit():
