@@ -2,26 +2,21 @@ import numpy as np
 import time
 from vision import Vision
 from controller import Controller
-import glob
 
 import cv2
 
 class BotHabbo:
     def __init__(self):
-        r = input("Room name? -> ")
-        self.room = "cafeteria"
-        if r != "":
-            self.room = r
         print("Charging vision library")
         self.vision = Vision()
         print("Charging controller library")
         self.controller = Controller()
         self.state = 'not started'
         self.static_templates_habbo = {
-            'x_icon': glob.glob("assets/habbo/x_icon_keko/*.png")[0],
-            'talk1': glob.glob("assets/habbo/talk/*.png")[0],
-            'habbom1': glob.glob("assets/habbo/habbo_arrow/*.png")[0],
-            'givedrink1': glob.glob("assets/habbo/give_drink/*.png")[0],
+            'x_icon': 'assets/habbo/x_icon.png',
+            'talk1': 'assets/habbo/talk1.png',
+            'habbom1': 'assets/habbo/habbom1.png',
+            'givedrink1': 'assets/habbo/givedrink1.png',
         }
 
     def find_x_and_close_object_window(self):
@@ -60,7 +55,7 @@ class BotHabbo:
                 self.find_x_and_close_object_window()
                 return True
         return False
-
+    
     def find_drink_and_take_it(self, image_paths):
         """get the image paths and for the coors in the screenshot
         and go to some place if find one"""
@@ -105,7 +100,7 @@ class BotHabbo:
         print("Chat no found")
         return False
 
-
+    
     def find_and_open_habbo_menu(self):
         """Looks for the X icon of a window and close it if find one"""
         print("looking for habbo menu..")
@@ -123,7 +118,7 @@ class BotHabbo:
             return True
         print("Chat no found")
         return False
-
+    
 
     def find_givedrink_button_and_click(self):
         """Looks for the X icon of a window and close it if find one"""
@@ -141,7 +136,7 @@ class BotHabbo:
             return True
         print("Chat no found")
         return False
-
+        
 
 
     def run(self):

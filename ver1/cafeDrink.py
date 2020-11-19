@@ -1,0 +1,101 @@
+import numpy as np
+import time
+from habbo import BotHabbo
+from random import shuffle
+from random import randrange
+
+from quotescafe import dd
+
+
+class BotCafeteria(BotHabbo):
+    def __init__(self):
+        super().__init__()
+        self.state = 'not started'
+        self.static_templates = {
+            'chair2': 'assets/cafeteria/chair2.png',
+            'chair3': 'assets/cafeteria/chair3.png',
+            'chair4': 'assets/cafeteria/chair4.png',
+            'chair5': 'assets/cafeteria/chair5.png',
+            'chair6': 'assets/cafeteria/chair6.png',
+            'chair7': 'assets/cafeteria/chair7.png',
+            'chair8': 'assets/cafeteria/chair8.png',
+            'chair9': 'assets/cafeteria/chair9.png',
+            'chair10': 'assets/cafeteria/chair10.png',
+            'floor1': 'assets/cafeteria/floor1.png',
+            'floor2': 'assets/cafeteria/floor2.png',
+            'floor3': 'assets/cafeteria/floor3.png',
+            'drink1': 'assets/cafeteria/drink1.png',
+            'drink2': 'assets/cafeteria/drink2.png',
+            'drink3': 'assets/cafeteria/drink3.png',
+        }
+        self.quotes = dd
+        print("ready...")
+
+    def find_chair_and_sit(self):
+        print("looking for a chair...")
+        paths = self.get_images_path(self.static_templates, 'chair') # get al chair image paths
+        shuffle(paths) # shuffle the list of paths to get random images
+        return self.find_place_and_go(paths) # go to the chair if find one
+
+    def find_floor_and_go(self):
+        print("looking for a floor...")
+        paths = self.get_images_path(self.static_templates, 'floor') # get al chair image paths
+        paths.reverse()
+        return self.find_place_and_go(paths) # go to the floor if find one
+
+
+    def find_cafe_and_go(self):
+        print("looking for a cafe...")
+        paths = self.get_images_path(self.static_templates, 'drink')
+        shuffle(paths)
+        return self.find_drink_and_take_it(paths)
+
+
+
+    def give_drink_to_some_habbo(self):
+        """get a drink and give it to some habbo"""
+        self.state = "looking for a drink"
+        self.find_cafe_and_go()
+        time.sleep(10)
+        self.find_habbos_talking()
+        time.sleep(1)
+        self.find_and_open_habbo_menu()
+        time.sleep(2)
+        self.find_givedrink_button_and_click()
+
+    def caffe_drink_quotes(self):
+        size = len(self.quotes)
+        pos = randrange(size)
+        quote = self.quotes[pos]
+        self.say_something(quote)
+
+
+
+    def run(self):
+        while True:
+            print("waiting...")
+            time.sleep(5)
+            if randrange(10)<=10:
+                if randrange(20)<=3:
+                    self.caffe_drink_quotes()
+                self.find_cafe_and_go()
+                if randrange(10)<=10:
+                    self.give_drink_to_some_habbo()
+                continue
+            elif self.find_chair_and_sit():
+                continue
+            else:
+                self.find_floor_and_go()
+
+
+
+
+print("Charging bot")
+bot = BotCafeteria()
+# bot.find_floor_and_go()
+# bot.find_chair_and_sit()
+# bot.find_cafe_and_go()
+bot.run()
+# bot.find_habbos_talking()
+# bot.give_drink_to_some_habbo()
+
